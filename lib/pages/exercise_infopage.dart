@@ -204,12 +204,15 @@ class _ExerciseInfoPageState extends State<ExerciseInfoPage> {
                                   .exerciseInfo[index];
 
                               return DataRow(cells: [
-                                DataCell(Text((index + 1).toString(),
-                                    style: const TextStyle(color: Colors.white))),
+                                DataCell(Text(exerciseInfo.sets.toString(),
+                                    style:
+                                        const TextStyle(color: Colors.white))),
                                 DataCell(Text(exerciseInfo.reps,
-                                    style:const TextStyle(color: Colors.white))),
+                                    style:
+                                        const TextStyle(color: Colors.white))),
                                 DataCell(Text(exerciseInfo.weight,
-                                    style: const TextStyle(color: Colors.white))),
+                                    style:
+                                        const TextStyle(color: Colors.white))),
                               ]);
                             })),
                       ),
@@ -222,6 +225,11 @@ class _ExerciseInfoPageState extends State<ExerciseInfoPage> {
 
   Future<dynamic> dialog(BuildContext context) {
     var borderRadius = BorderRadius.circular(12);
+    int set = Provider.of<WorkoutData>(context, listen: false)
+            .getExercise(widget.date, widget.exerciseName)
+            .exerciseInfo
+            .length +
+        1;
     return showDialog(
       context: context,
       builder: ((context) => Center(
@@ -232,10 +240,7 @@ class _ExerciseInfoPageState extends State<ExerciseInfoPage> {
                 title: const Text("Add Workout"),
                 content: Column(
                   children: [
-                    TextField(
-                      decoration: const InputDecoration(hintText: "Set Number"),
-                      controller: setController,
-                    ),
+                    Text("Set " + set.toString()),
                     TextField(
                       decoration: const InputDecoration(hintText: "Reps Count"),
                       controller: repscontroller,
@@ -249,13 +254,18 @@ class _ExerciseInfoPageState extends State<ExerciseInfoPage> {
                 actions: [
                   MaterialButton(
                     onPressed: () {
+                      int set = Provider.of<WorkoutData>(context, listen: false)
+                              .getExercise(widget.date, widget.exerciseName)
+                              .exerciseInfo
+                              .length +
+                          1;
                       Provider.of<WorkoutData>(context, listen: false)
                           .addExerciseInfo(
                               widget.date,
                               widget.exerciseName,
                               weightcontroller.text,
                               repscontroller.text,
-                              setController.text);
+                              set.toString());
                       Navigator.pop(context);
                       clear();
                     },

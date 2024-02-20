@@ -83,7 +83,7 @@ class _ExercisePageState extends State<ExercisePage> {
                           borderRadius: BorderRadius.circular(12)),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 2.0, horizontal: 2),
+                            vertical: 1.0, horizontal: 1),
                         child: Row(
                           children: [
                             Expanded(
@@ -169,7 +169,15 @@ class _ExercisePageState extends State<ExercisePage> {
                                       Icons.delete_outline_outlined,
                                       color: Colors.white,
                                     ),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      value.delExercise(
+                                        widget.date,
+                                        value
+                                            .getWorkout(widget.date)
+                                            .exercises[index]
+                                            .exerciseName,
+                                      );
+                                    },
                                   ),
                                 ),
                               ),
@@ -201,9 +209,20 @@ class _ExercisePageState extends State<ExercisePage> {
                 actions: [
                   MaterialButton(
                     onPressed: () {
-                      Provider.of<WorkoutData>(context, listen: false)
-                          .addExercise(
-                              widget.date, newExerciseNameController.text);
+                      if (newExerciseNameController.text.isEmpty) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text("Please Add Exercise Name"),
+                            backgroundColor: Colors.amber,
+                          ),
+                        );
+                      } else {
+                        Provider.of<WorkoutData>(context, listen: false)
+                            .addExercise(
+                                widget.date, newExerciseNameController.text);
+                      }
+
                       Navigator.pop(context);
                     },
                     child: const Text("Save"),
