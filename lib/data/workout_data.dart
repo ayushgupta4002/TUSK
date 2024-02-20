@@ -74,6 +74,7 @@ class WorkoutData extends ChangeNotifier {
     Exercise findExercise = getExercise(date, ExerciseName);
     findExercise.exerciseInfo
         .add(ExerciseInfo(reps: reps, sets: set, weight: weight));
+    notifyListeners();
   }
 
   //checkoff the box

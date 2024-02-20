@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:baki/data/workout_data.dart';
+import 'package:baki/models/exerciseinfo_data.dart';
 import 'package:baki/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,9 +19,18 @@ class ExerciseInfoPage extends StatefulWidget {
 }
 
 class _ExerciseInfoPageState extends State<ExerciseInfoPage> {
+  final setController = TextEditingController();
+  final repscontroller = TextEditingController();
+  final weightcontroller = TextEditingController();
   static const minSeconds = 0;
   int seconds = minSeconds;
   Timer? timer;
+
+  void clear() {
+    setController.clear();
+    repscontroller.clear();
+    weightcontroller.clear();
+  }
 
   void backfn() {
     Navigator.of(context).pop();
@@ -28,7 +38,7 @@ class _ExerciseInfoPageState extends State<ExerciseInfoPage> {
 
   void startTimer() {
     if (timer == null || !timer!.isActive) {
-      timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      timer = Timer.periodic(const Duration(seconds: 1), (timer) {
         setState(() {
           seconds++;
         });
@@ -74,123 +84,195 @@ class _ExerciseInfoPageState extends State<ExerciseInfoPage> {
               floatingActionButton: FloatingActionButton(
                 backgroundColor: Colors.grey.shade700,
                 child: const Icon(Icons.add),
-                onPressed: () {},
+                onPressed: () {
+                  dialog(context);
+                },
               ),
-              body: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 4),
-                  //text exercise name
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(widget.exerciseName,
-                        style: const TextStyle(
-                            fontSize: 33,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500)),
-                  ),
-                  //text subtitle
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                    child: Text("Let's Go",
-                        style: TextStyle(
-                            fontSize: 23,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w300)),
-                  ),
-
-                  SizedBox(height: 10),
-                  //clock
-                  Center(
-                    child: SizedBox(
-                      height: 150,
-                      width: 150,
-                      child: Stack(fit: StackFit.expand, children: [
-                        CircularProgressIndicator(
-                          value: seconds / 60,
-                          strokeWidth: 10,
-                          valueColor: AlwaysStoppedAnimation(Colors.white),
-                          backgroundColor: Colors.grey.shade800,
-                        ),
-                        Center(
-                          child: Text(seconds.toString(),
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 50)),
-                        ),
-                      ]),
+              body: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 4),
+                    //text exercise name
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(widget.exerciseName,
+                          style: const TextStyle(
+                              fontSize: 33,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500)),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  //button for clock
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: ButtonWidget(
-                              text: timer == null
-                                  ? "Pause Timer"
-                                  : timer!.isActive
-                                      ? "Pause Timer"
-                                      : "Resume Timer",
-                              startTimer: timer == null
-                                  ? pauseTimer
-                                  : timer!.isActive
-                                      ? pauseTimer
-                                      : startTimer,
-                            ),
+                    //text subtitle
+                    const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                      child: Text("Let's Go",
+                          style: TextStyle(
+                              fontSize: 23,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w300)),
+                    ),
+
+                    const SizedBox(height: 10),
+                    //clock
+                    Center(
+                      child: SizedBox(
+                        height: 150,
+                        width: 150,
+                        child: Stack(fit: StackFit.expand, children: [
+                          CircularProgressIndicator(
+                            value: seconds / 60,
+                            strokeWidth: 10,
+                            valueColor:
+                                const AlwaysStoppedAnimation(Colors.white),
+                            backgroundColor: Colors.grey.shade800,
                           ),
-                          Expanded(
-                            child: ButtonWidget(
-                              text: "Start Timer",
-                              startTimer: startTimer,
-                            ),
+                          Center(
+                            child: Text(seconds.toString(),
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 50)),
                           ),
-                          Expanded(
-                            child: ButtonWidget(
-                              text: "Reset Timer",
-                              startTimer: resetTimer,
-                            ),
-                          ),
-                        ],
+                        ]),
                       ),
                     ),
-                  ),
-                  Center(
-                    child: Theme(
-                      data: Theme.of(context)
-                          .copyWith(dividerColor: Colors.white),
-                      child: DataTable(columns: const [
-                        DataColumn(
-                          label: Text(
-                            'Set',
-                            style: TextStyle(color: Colors.white),
-                          ),
+                    const SizedBox(height: 20),
+                    //button for clock
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: ButtonWidget(
+                                text: timer == null
+                                    ? "Pause Timer"
+                                    : timer!.isActive
+                                        ? "Pause Timer"
+                                        : "Resume Timer",
+                                startTimer: timer == null
+                                    ? pauseTimer
+                                    : timer!.isActive
+                                        ? pauseTimer
+                                        : startTimer,
+                              ),
+                            ),
+                            Expanded(
+                              child: ButtonWidget(
+                                text: "Start Timer",
+                                startTimer: startTimer,
+                              ),
+                            ),
+                            Expanded(
+                              child: ButtonWidget(
+                                text: "Reset Timer",
+                                startTimer: resetTimer,
+                              ),
+                            ),
+                          ],
                         ),
-                        DataColumn(
-                          label: Text('Reps',
-                              style: TextStyle(color: Colors.white)),
-                        ),
-                        DataColumn(
-                          label: Text('Weights',
-                              style: TextStyle(color: Colors.white)),
-                        ),
-                      ], rows: [
-                        DataRow(cells: [
-                          DataCell(
-                              Text('1', style: TextStyle(color: Colors.white))),
-                          DataCell(Text('Arshik',
-                              style: TextStyle(color: Colors.white))),
-                          DataCell(Text('5644645',
-                              style: TextStyle(color: Colors.white))),
-                        ])
-                      ]),
+                      ),
                     ),
+                    Center(
+                      child: Theme(
+                        data: Theme.of(context)
+                            .copyWith(dividerColor: Colors.white),
+                        child: DataTable(
+                            columns: const [
+                              DataColumn(
+                                label: Text(
+                                  'Set',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text('Reps',
+                                    style: TextStyle(color: Colors.white)),
+                              ),
+                              DataColumn(
+                                label: Text('Weights',
+                                    style: TextStyle(color: Colors.white)),
+                              ),
+                            ],
+                            rows: List.generate(
+                                value
+                                    .getExercise(
+                                        widget.date, widget.exerciseName)
+                                    .exerciseInfo
+                                    .length, (index) {
+                              ExerciseInfo exerciseInfo = value
+                                  .getExercise(widget.date, widget.exerciseName)
+                                  .exerciseInfo[index];
+
+                              return DataRow(cells: [
+                                DataCell(Text((index + 1).toString(),
+                                    style: const TextStyle(color: Colors.white))),
+                                DataCell(Text(exerciseInfo.reps,
+                                    style:const TextStyle(color: Colors.white))),
+                                DataCell(Text(exerciseInfo.weight,
+                                    style: const TextStyle(color: Colors.white))),
+                              ]);
+                            })),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ));
+  }
+
+  Future<dynamic> dialog(BuildContext context) {
+    var borderRadius = BorderRadius.circular(12);
+    return showDialog(
+      context: context,
+      builder: ((context) => Center(
+            child: SingleChildScrollView(
+              child: AlertDialog(
+                backgroundColor: Colors.grey.shade100,
+                shape: RoundedRectangleBorder(borderRadius: borderRadius),
+                title: const Text("Add Workout"),
+                content: Column(
+                  children: [
+                    TextField(
+                      decoration: const InputDecoration(hintText: "Set Number"),
+                      controller: setController,
+                    ),
+                    TextField(
+                      decoration: const InputDecoration(hintText: "Reps Count"),
+                      controller: repscontroller,
+                    ),
+                    TextField(
+                      decoration: const InputDecoration(hintText: "Weight"),
+                      controller: weightcontroller,
+                    ),
+                  ],
+                ),
+                actions: [
+                  MaterialButton(
+                    onPressed: () {
+                      Provider.of<WorkoutData>(context, listen: false)
+                          .addExerciseInfo(
+                              widget.date,
+                              widget.exerciseName,
+                              weightcontroller.text,
+                              repscontroller.text,
+                              setController.text);
+                      Navigator.pop(context);
+                      clear();
+                    },
+                    child: const Text("Save"),
+                  ),
+                  MaterialButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      clear();
+                    },
+                    child: const Text("Cancel"),
                   )
                 ],
               ),
-            ));
+            ),
+          )),
+    );
   }
 }
 
