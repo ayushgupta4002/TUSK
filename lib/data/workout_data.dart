@@ -9,20 +9,20 @@ class WorkoutData extends ChangeNotifier {
   final db = HiveDb();
   List<Workout> workoutList = [
     Workout(
-      name: "Chest",
+      name: "Demo Workout",
       exercises: [
-        Exercise(exerciseName: "Bench Press", exerciseInfo: [
+        Exercise(exerciseName: "Demo Exercise", exerciseInfo: [
           ExerciseInfo(reps: "8", sets: "1", weight: "40"),
           ExerciseInfo(reps: "8", sets: "2", weight: "45"),
           ExerciseInfo(reps: "7", sets: "3", weight: "45"),
         ]),
-        Exercise(exerciseName: "leg Press", exerciseInfo: [
+        Exercise(exerciseName: "Demo Exercise", exerciseInfo: [
           ExerciseInfo(reps: "8", sets: "1", weight: "40"),
           ExerciseInfo(reps: "8", sets: "2", weight: "45"),
           ExerciseInfo(reps: "7", sets: "3", weight: "45"),
         ]),
       ],
-      date: "12 jan 2024",
+      date: "Demo Workout",
       time: "5:00 pm",
     )
   ];

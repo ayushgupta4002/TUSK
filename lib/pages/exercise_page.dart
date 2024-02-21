@@ -54,140 +54,148 @@ class _ExercisePageState extends State<ExercisePage> {
                   dialog(context);
                 },
               ),
-              body: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 4),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(widget.date,
-                        style: const TextStyle(
-                            fontSize: 33,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500)),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                    child: Text("Let's Go",
-                        style: TextStyle(
-                            fontSize: 23,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w300)),
-                  ),
-                  const SizedBox(height: 23),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: const Color(0xffadff6f),
-                          borderRadius: BorderRadius.circular(12)),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 1.0, horizontal: 1),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(1.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    color: const Color(0xff1a1a1a),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(35.0),
-                                    child: Text(
-                                      "${value.totalWeight(widget.date, widget.workoutName)} kg",
-                                      style: const TextStyle(
-                                          fontSize: 33,
-                                          color: Color(0xffadff6f)),
+              body: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 4),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(widget.date,
+                          style: const TextStyle(
+                              fontSize: 33,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500)),
+                    ),
+                    const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                      child: Text("Let's Go",
+                          style: TextStyle(
+                              fontSize: 23,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w300)),
+                    ),
+                    const SizedBox(height: 23),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: const Color(0xffadff6f),
+                            borderRadius: BorderRadius.circular(12)),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 1.0, horizontal: 1),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(1.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      color: const Color(0xff1a1a1a),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(35.0),
+                                      child: Text(
+                                        "${value.totalWeight(widget.date, widget.workoutName)} kg",
+                                        style: const TextStyle(
+                                            fontSize: 33,
+                                            color: Color(0xffadff6f)),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    color: const Color(0xff1a1a1a),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(35.0),
-                                    child: Text(
-                                      "${value.totalWeight(widget.date, widget.workoutName)} kg",
-                                      style: const TextStyle(
-                                          fontSize: 33,
-                                          color: Color(0xffadff6f)),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      color: const Color(0xff1a1a1a),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(35.0),
+                                      child: Text(
+                                        "${value.totalWeight(widget.date, widget.workoutName)} kg",
+                                        style: const TextStyle(
+                                            fontSize: 33,
+                                            color: Color(0xffadff6f)),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  Expanded(
-                    child: value.numberofExercisesinWorkout(widget.date) > 0
-                        ? ListView.builder(
-                            itemCount:
-                                value.numberofExercisesinWorkout(widget.date),
-                            itemBuilder: (context, index) => Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => ExerciseInfoPage(
-                                            date: widget.date,
-                                            exerciseName: value
-                                                .getWorkout(widget.date)
-                                                .exercises[index]
-                                                .exerciseName,
-                                          )));
-                                },
-                                child: ListTile(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 5, horizontal: 12),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: borderRadius),
-                                  tileColor: const Color(0xff1a1a1a),
-                                  title: Text(
-                                    value
-                                        .getWorkout(widget.date)
-                                        .exercises[index]
-                                        .exerciseName,
-                                    style: const TextStyle(
-                                        fontSize: 18, color: Colors.white),
-                                  ),
-                                  trailing: IconButton(
-                                    icon: const Icon(
-                                      Icons.delete_outline_outlined,
-                                      color: Colors.white,
+                    const SizedBox(height: 10),
+                    Expanded(
+                      child: value.numberofExercisesinWorkout(widget.date) > 0
+                          ? ListView.builder(
+                              itemCount:
+                                  value.numberofExercisesinWorkout(widget.date),
+                              itemBuilder: (context, index) => Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ExerciseInfoPage(
+                                                  date: widget.date,
+                                                  exerciseName: value
+                                                      .getWorkout(widget.date)
+                                                      .exercises[index]
+                                                      .exerciseName,
+                                                )));
+                                  },
+                                  child: ListTile(
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 12),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: borderRadius),
+                                    tileColor: const Color(0xff1a1a1a),
+                                    title: Text(
+                                      value
+                                          .getWorkout(widget.date)
+                                          .exercises[index]
+                                          .exerciseName,
+                                      style: const TextStyle(
+                                          fontSize: 18, color: Colors.white),
                                     ),
-                                    onPressed: () {
-                                      value.delExercise(
-                                        widget.date,
-                                        value
-                                            .getWorkout(widget.date)
-                                            .exercises[index]
-                                            .exerciseName,
-                                      );
-                                    },
+                                    trailing: IconButton(
+                                      icon: const Icon(
+                                        Icons.delete_outline_outlined,
+                                        color: Colors.white,
+                                      ),
+                                      onPressed: () {
+                                        value.delExercise(
+                                          widget.date,
+                                          value
+                                              .getWorkout(widget.date)
+                                              .exercises[index]
+                                              .exerciseName,
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
                               ),
+                            )
+                          : const Center(
+                              child: Text(
+                                'No exercises in this workout',
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
-                          )
-                        : const Center(
-                            child: Text('No exercises in this workout'),
-                          ),
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ));
   }
