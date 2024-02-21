@@ -221,6 +221,7 @@ class _ExercisePageState extends State<ExercisePage> {
                         Provider.of<WorkoutData>(context, listen: false)
                             .addExercise(
                                 widget.date, newExerciseNameController.text);
+                        newExerciseNameController.clear();
                       }
 
                       Navigator.pop(context);

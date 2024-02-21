@@ -137,41 +137,7 @@ class _ExerciseInfoPageState extends State<ExerciseInfoPage> {
                     ),
                     const SizedBox(height: 20),
                     //button for clock
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: ButtonWidget(
-                                text: timer == null
-                                    ? "Pause Timer"
-                                    : timer!.isActive
-                                        ? "Pause Timer"
-                                        : "Resume Timer",
-                                startTimer: timer == null
-                                    ? pauseTimer
-                                    : timer!.isActive
-                                        ? pauseTimer
-                                        : startTimer,
-                              ),
-                            ),
-                            Expanded(
-                              child: ButtonWidget(
-                                text: "Start Timer",
-                                startTimer: startTimer,
-                              ),
-                            ),
-                            Expanded(
-                              child: ButtonWidget(
-                                text: "Reset Timer",
-                                startTimer: resetTimer,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    buttons(),
                     Center(
                       child: Theme(
                         data: Theme.of(context)
@@ -283,6 +249,44 @@ class _ExerciseInfoPageState extends State<ExerciseInfoPage> {
             ),
           )),
     );
+  }
+
+  Widget buttons() {
+    final isRunning = timer == null ? false : timer!.isActive;
+    return isRunning
+        ? Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 58),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ButtonWidget(
+                      startTimer: () {
+                        if (isRunning) {
+                          pauseTimer();
+                        } else {
+                          startTimer();
+                        }
+                      },
+                      text: isRunning ? "Pause Timer" : "Resume Timer",
+                    ),
+                  ),
+                  Expanded(
+                    child: ButtonWidget(
+                      text: "Reset Timer",
+                      startTimer: resetTimer,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        : Center(
+            child: ButtonWidget(
+              text: "Start Timer",
+              startTimer: startTimer,
+            ),
+          );
   }
 }
 
