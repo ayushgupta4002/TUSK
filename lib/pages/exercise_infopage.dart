@@ -220,18 +220,25 @@ class _ExerciseInfoPageState extends State<ExerciseInfoPage> {
                 actions: [
                   MaterialButton(
                     onPressed: () {
-                      int set = Provider.of<WorkoutData>(context, listen: false)
-                              .getExercise(widget.date, widget.exerciseName)
-                              .exerciseInfo
-                              .length +
-                          1;
-                      Provider.of<WorkoutData>(context, listen: false)
-                          .addExerciseInfo(
-                              widget.date,
-                              widget.exerciseName,
-                              weightcontroller.text,
-                              repscontroller.text,
-                              set.toString());
+                      if (repscontroller.text.isEmpty ||
+                          weightcontroller.text.isEmpty) {
+                        print("please write complete info");
+                      } else {
+                        int set = Provider.of<WorkoutData>(context,
+                                    listen: false)
+                                .getExercise(widget.date, widget.exerciseName)
+                                .exerciseInfo
+                                .length +
+                            1;
+                        Provider.of<WorkoutData>(context, listen: false)
+                            .addExerciseInfo(
+                                widget.date,
+                                widget.exerciseName,
+                                weightcontroller.text,
+                                repscontroller.text,
+                                set.toString());
+                      }
+
                       Navigator.pop(context);
                       clear();
                     },

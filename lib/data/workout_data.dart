@@ -1,3 +1,4 @@
+import 'package:baki/data/hive_db.dart';
 import 'package:baki/models/exercise.dart';
 import 'package:baki/models/exerciseinfo_data.dart';
 import 'package:baki/models/workout.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class WorkoutData extends ChangeNotifier {
+  final db = HiveDb();
   List<Workout> workoutList = [
     Workout(
       name: "Chest",
@@ -13,12 +15,25 @@ class WorkoutData extends ChangeNotifier {
           ExerciseInfo(reps: "8", sets: "1", weight: "40"),
           ExerciseInfo(reps: "8", sets: "2", weight: "45"),
           ExerciseInfo(reps: "7", sets: "3", weight: "45"),
-        ])
+        ]),
+        Exercise(exerciseName: "leg Press", exerciseInfo: [
+          ExerciseInfo(reps: "8", sets: "1", weight: "40"),
+          ExerciseInfo(reps: "8", sets: "2", weight: "45"),
+          ExerciseInfo(reps: "7", sets: "3", weight: "45"),
+        ]),
       ],
       date: "12 jan 2024",
       time: "5:00 pm",
     )
   ];
+
+  void initializeWorkoutList() {
+    if (db.prevDataExists()) {
+      workoutList = db.readFromDb();
+    } else {
+      db.saveToDb(workoutList);
+    }
+  }
 
   //get all list
   List<Workout> getWorkoutList() {
@@ -43,6 +58,7 @@ class WorkoutData extends ChangeNotifier {
     workoutList
         .removeWhere((workout) => workout.date == date && workout.time == time);
     notifyListeners();
+    db.saveToDb(workoutList);
   }
 
   //add workout
@@ -56,6 +72,7 @@ class WorkoutData extends ChangeNotifier {
         time: DateFormat.jm().format(now),
         exercises: []));
     notifyListeners();
+    db.saveToDb(workoutList);
   }
 
   //add exercise
@@ -65,6 +82,7 @@ class WorkoutData extends ChangeNotifier {
     findWorkout.exercises
         .add(Exercise(exerciseName: ExerciseName, exerciseInfo: []));
     notifyListeners();
+    db.saveToDb(workoutList);
   }
 
   //delete exercise
@@ -74,6 +92,7 @@ class WorkoutData extends ChangeNotifier {
     findWorkout.exercises
         .removeWhere((exercise) => exercise.exerciseName == exerciseName);
     notifyListeners();
+    db.saveToDb(workoutList);
   }
   //add exercise info
 
@@ -83,6 +102,7 @@ class WorkoutData extends ChangeNotifier {
     findExercise.exerciseInfo
         .add(ExerciseInfo(reps: reps, sets: set, weight: weight));
     notifyListeners();
+    db.saveToDb(workoutList);
   }
 
   //checkoff the box

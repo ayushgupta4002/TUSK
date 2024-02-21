@@ -217,6 +217,7 @@ class _ExercisePageState extends State<ExercisePage> {
                             backgroundColor: Colors.amber,
                           ),
                         );
+                        Navigator.pop(context);
                       } else {
                         Provider.of<WorkoutData>(context, listen: false)
                             .addExercise(
