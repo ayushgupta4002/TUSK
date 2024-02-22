@@ -99,7 +99,7 @@ class _ExercisePageState extends State<ExercisePage> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(35.0),
                                       child: Text(
-                                        "${value.totalWeight(widget.date, widget.workoutName)} kg",
+                                        "${value.totalWeight(widget.date, widget.workoutName)} kgs",
                                         style: const TextStyle(
                                             fontSize: 33,
                                             color: Color(0xffadff6f)),
@@ -119,7 +119,7 @@ class _ExercisePageState extends State<ExercisePage> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(35.0),
                                       child: Text(
-                                        "${value.totalWeight(widget.date, widget.workoutName)} kg",
+                                        "${value.calculateSets(widget.date, widget.workoutName)} Sets",
                                         style: const TextStyle(
                                             fontSize: 33,
                                             color: Color(0xffadff6f)),

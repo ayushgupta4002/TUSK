@@ -53,6 +53,19 @@ class WorkoutData extends ChangeNotifier {
     return total;
   }
 
+  // calculate sets
+
+  int calculateSets(String date, String workoutname) {
+    Workout findWorkout = getWorkout(date);
+    int total = 0;
+    findWorkout.exercises.forEach((exercise) {
+      exercise.exerciseInfo.forEach((exercisedata) {
+        total += int.parse(exercisedata.sets);
+      });
+    });
+    return total;
+  }
+
 //remove workout
   void removeWorkout(String date, String time) {
     workoutList
