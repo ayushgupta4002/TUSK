@@ -37,14 +37,20 @@ class _ExercisePageState extends State<ExercisePage> {
               appBar: AppBar(
                 backgroundColor: Colors.transparent,
                 actions: [
-                  IconWidget(
-                    icon: const Icon(Icons.home, color: Colors.white),
-                    ontap: homefn,
+                  Padding(
+                    padding: const EdgeInsets.only(right: 6, top: 2),
+                    child: IconWidget(
+                      icon: const Icon(Icons.home, color: Colors.white),
+                      ontap: homefn,
+                    ),
                   )
                 ],
-                leading: IconWidget(
-                  icon: const Icon(Icons.arrow_back, color: Colors.white),
-                  ontap: backfn,
+                leading: Padding(
+                  padding: const EdgeInsets.only(left: 6, top: 2),
+                  child: IconWidget(
+                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                    ontap: backfn,
+                  ),
                 ),
               ),
               floatingActionButton: FloatingActionButton(
@@ -213,8 +219,9 @@ class _ExercisePageState extends State<ExercisePage> {
                           )
                         : const Center(
                             child: Text(
-                              'No exercises in this workout',
-                              style: TextStyle(color: Colors.white),
+                              'Please add a exercise in this workout !',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
                             ),
                           ),
                   ),
@@ -230,11 +237,28 @@ class _ExercisePageState extends State<ExercisePage> {
       builder: ((context) => Center(
             child: SingleChildScrollView(
               child: AlertDialog(
-                backgroundColor: Colors.grey.shade100,
-                shape: RoundedRectangleBorder(borderRadius: borderRadius),
-                title: const Text("Add Workout"),
+                backgroundColor: Colors.grey.shade900,
+                shape: RoundedRectangleBorder(
+                    borderRadius: borderRadius,
+                    side: BorderSide(color: Colors.white)),
+                title: Center(
+                  child: const Text(
+                    "Add Workout",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
                 content: TextField(
-                  decoration: const InputDecoration(hintText: "Exercise Name"),
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                      filled: true,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(14)),
+                      fillColor: Colors.grey.shade800,
+                      hintText: "Exercise Name",
+                      hintStyle: TextStyle(color: Colors.white)),
                   controller: newExerciseNameController,
                 ),
                 actions: [
@@ -244,7 +268,10 @@ class _ExercisePageState extends State<ExercisePage> {
                         showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                            title: Text("Please Add Exercise Name"),
+                            title: Text(
+                              "Please Add Exercise Name",
+                              style: TextStyle(color: Colors.white),
+                            ),
                             backgroundColor: Colors.amber,
                           ),
                         );
@@ -258,13 +285,19 @@ class _ExercisePageState extends State<ExercisePage> {
 
                       Navigator.pop(context);
                     },
-                    child: const Text("Save"),
+                    child: const Text(
+                      "Save",
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                   MaterialButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: const Text("Cancel"),
+                    child: const Text(
+                      "Cancel",
+                      style: TextStyle(color: Colors.white),
+                    ),
                   )
                 ],
               ),

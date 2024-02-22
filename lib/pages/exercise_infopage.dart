@@ -71,14 +71,20 @@ class _ExerciseInfoPageState extends State<ExerciseInfoPage> {
               appBar: AppBar(
                 backgroundColor: Colors.transparent,
                 actions: [
-                  IconWidget(
-                    icon: const Icon(Icons.home, color: Colors.white),
-                    ontap: homefn,
+                  Padding(
+                    padding: const EdgeInsets.only(right: 6, top: 2),
+                    child: IconWidget(
+                      icon: const Icon(Icons.home, color: Colors.white),
+                      ontap: homefn,
+                    ),
                   )
                 ],
-                leading: IconWidget(
-                  icon: const Icon(Icons.arrow_back, color: Colors.white),
-                  ontap: backfn,
+                leading: Padding(
+                  padding: const EdgeInsets.only(left: 6, top: 2),
+                  child: IconWidget(
+                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                    ontap: backfn,
+                  ),
                 ),
               ),
               floatingActionButton: FloatingActionButton(
@@ -201,18 +207,56 @@ class _ExerciseInfoPageState extends State<ExerciseInfoPage> {
       builder: ((context) => Center(
             child: SingleChildScrollView(
               child: AlertDialog(
-                backgroundColor: Colors.grey.shade100,
-                shape: RoundedRectangleBorder(borderRadius: borderRadius),
-                title: const Text("Add Workout"),
+                backgroundColor: Colors.grey.shade900,
+                shape: RoundedRectangleBorder(
+                    borderRadius: borderRadius,
+                    side: BorderSide(color: Colors.white)),
+                title: Center(
+                  child: const Text(
+                    "Add Workout",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
                 content: Column(
                   children: [
-                    Text("Set " + set.toString()),
-                    TextField(
-                      decoration: const InputDecoration(hintText: "Reps Count"),
-                      controller: repscontroller,
+                    Text(
+                      "Set " + set.toString(),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 14,
                     ),
                     TextField(
-                      decoration: const InputDecoration(hintText: "Weight"),
+                      style: TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(17),
+                          ),
+                          fillColor: Colors.grey.shade800,
+                          hintText: "Reps Count",
+                          hintStyle: TextStyle(color: Colors.white)),
+                      controller: repscontroller,
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    TextField(
+                      style: TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(17),
+                          ),
+                          fillColor: Colors.grey.shade800,
+                          hintText: "Weight",
+                          hintStyle: TextStyle(color: Colors.white)),
                       controller: weightcontroller,
                     ),
                   ],
@@ -242,14 +286,16 @@ class _ExerciseInfoPageState extends State<ExerciseInfoPage> {
                       Navigator.pop(context);
                       clear();
                     },
-                    child: const Text("Save"),
+                    child: const Text("Save",
+                        style: TextStyle(color: Colors.white)),
                   ),
                   MaterialButton(
                     onPressed: () {
                       Navigator.pop(context);
                       clear();
                     },
-                    child: const Text("Cancel"),
+                    child: const Text("Cancel",
+                        style: TextStyle(color: Colors.white)),
                   )
                 ],
               ),
