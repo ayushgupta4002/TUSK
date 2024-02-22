@@ -42,12 +42,12 @@ class WorkoutData extends ChangeNotifier {
 
   //Total Weight
 
-  int totalWeight(String date, String workoutname) {
+  double totalWeight(String date, String workoutname) {
     Workout findWorkout = getWorkout(date);
-    int total = 0;
+    double total = 0;
     findWorkout.exercises.forEach((exercise) {
       exercise.exerciseInfo.forEach((exercisedata) {
-        total += int.parse(exercisedata.weight);
+        total += double.parse(exercisedata.weight);
       });
     });
     return total;
@@ -60,7 +60,7 @@ class WorkoutData extends ChangeNotifier {
     int total = 0;
     findWorkout.exercises.forEach((exercise) {
       exercise.exerciseInfo.forEach((exercisedata) {
-        total += int.parse(exercisedata.sets);
+        total += 1;
       });
     });
     return total;

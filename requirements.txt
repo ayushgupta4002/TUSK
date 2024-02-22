@@ -1,5 +1,6 @@
--> to add delete button on info page
+-> to add delete button on info page 
 -> add text on HomePage for empty Workout
 -> Time Resume Button not coming
 -> Beautify UI 
 -> Write sets function [done]
+-> solve double type sets not inserting [done]
