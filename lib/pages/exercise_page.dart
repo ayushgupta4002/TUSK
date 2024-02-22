@@ -72,9 +72,12 @@ class _ExercisePageState extends State<ExercisePage> {
                             color: Colors.white,
                             fontWeight: FontWeight.w500)),
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                    child: Text("Let's Go",
+                    child: Text(
+                        value.getWorkout(widget.date).name.isEmpty
+                            ? "Let's Go"
+                            : value.getWorkout(widget.date).name.toString(),
                         style: TextStyle(
                             fontSize: 23,
                             color: Colors.white,
@@ -218,10 +221,13 @@ class _ExercisePageState extends State<ExercisePage> {
                             ),
                           )
                         : const Center(
-                            child: Text(
-                              'Please add a exercise in this workout !',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
+                            child: Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child: Text(
+                                'Please add a exercise in this workout !',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 15),
+                              ),
                             ),
                           ),
                   ),

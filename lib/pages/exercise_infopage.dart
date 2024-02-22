@@ -164,6 +164,9 @@ class _ExerciseInfoPageState extends State<ExerciseInfoPage> {
                                 label: Text('Weights',
                                     style: TextStyle(color: Colors.white)),
                               ),
+                              DataColumn(
+                                label: Text(''),
+                              ),
                             ],
                             rows: List.generate(
                                 value
@@ -185,6 +188,12 @@ class _ExerciseInfoPageState extends State<ExerciseInfoPage> {
                                 DataCell(Text(exerciseInfo.weight,
                                     style:
                                         const TextStyle(color: Colors.white))),
+                                DataCell(IconButton(
+                                  icon:
+                                      const Icon(Icons.delete_outline_outlined),
+                                  color: Colors.white,
+                                  onPressed: () {},
+                                )),
                               ]);
                             })),
                       ),

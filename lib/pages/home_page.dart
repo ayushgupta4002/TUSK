@@ -118,9 +118,12 @@ class _HomePageState extends State<HomePage> {
                     ),
                   )
                 : Center(
-                    child: Text(
-                      "Please add a workout !",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        "Please add a workout !",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
                     ),
                   )));
   }

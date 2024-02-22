@@ -30,9 +30,9 @@ class WorkoutData extends ChangeNotifier {
   void initializeWorkoutList() {
     if (db.prevDataExists()) {
       workoutList = db.readFromDb();
-      print(workoutList[0].exercises[0].exerciseInfo[0].sets.toString());
-      print(workoutList[0].exercises[0].exerciseInfo[1].sets.toString());
-      print(workoutList[0].exercises[0].exerciseInfo[2].sets.toString());
+      // print(workoutList[0].exercises[0].exerciseInfo[0].sets.toString());
+      // print(workoutList[0].exercises[0].exerciseInfo[1].sets.toString());
+      // print(workoutList[0].exercises[0].exerciseInfo[2].sets.toString());
     } else {
       db.saveToDb(workoutList);
     }
@@ -120,6 +120,16 @@ class WorkoutData extends ChangeNotifier {
     notifyListeners();
     db.saveToDb(workoutList);
   }
+
+  // del exercise info
+
+  // void delExerciseInfo(String date, String exerciseName) {
+  //   Workout findexercise = );
+  //   findWorkout.exercises
+  //       .removeWhere((exercise) => exercise.exerciseName == exerciseName);
+  //   notifyListeners();
+  //   db.saveToDb(workoutList);
+  // }
 
   //checkoff the box
   // void checkBox(String workoutName, String exercise) {
