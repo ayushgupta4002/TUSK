@@ -30,6 +30,9 @@ class WorkoutData extends ChangeNotifier {
   void initializeWorkoutList() {
     if (db.prevDataExists()) {
       workoutList = db.readFromDb();
+      print(workoutList[0].exercises[0].exerciseInfo[0].sets.toString());
+      print(workoutList[0].exercises[0].exerciseInfo[1].sets.toString());
+      print(workoutList[0].exercises[0].exerciseInfo[2].sets.toString());
     } else {
       db.saveToDb(workoutList);
     }

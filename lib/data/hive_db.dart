@@ -59,8 +59,8 @@ class HiveDb {
 
         for (int k = 0; k < exercisesInfo[i][j].length; k++) {
           exerciseInfo.add(ExerciseInfo(
-              reps: exercisesInfo[i][j][k][0].toString(),
-              sets: exercisesInfo[i][j][k][1].toString(),
+              reps: exercisesInfo[i][j][k][1].toString(),
+              sets: exercisesInfo[i][j][k][0].toString(),
               weight: exercisesInfo[i][j][k][2].toString()));
         }
         exercises.add(
