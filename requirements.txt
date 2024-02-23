@@ -1,5 +1,5 @@
--> to add delete button on info page 
--> add text on HomePage for empty Workout
+-> to add delete button on info page [done]
+-> add text on HomePage for empty Workout[done]
 -> Time Resume Button not coming
 -> Beautify UI 
 -> Write sets function [done]

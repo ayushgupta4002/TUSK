@@ -135,13 +135,21 @@ class WorkoutData extends ChangeNotifier {
 
   // del exercise info
 
-  // void delExerciseInfo(String date, String exerciseName) {
-  //   Workout findexercise = );
-  //   findWorkout.exercises
-  //       .removeWhere((exercise) => exercise.exerciseName == exerciseName);
-  //   notifyListeners();
-  //   db.saveToDb(workoutList);
-  // }
+  void delExerciseInfo(String date, String exerciseName, String set) {
+    Exercise findExercise = getExercise(date, exerciseName);
+    findExercise.exerciseInfo.removeWhere((exercise) => exercise.sets == set);
+
+    for (int i = 0; i < findExercise.exerciseInfo.length; i++) {
+      findExercise.exerciseInfo[i] = ExerciseInfo(
+        reps: findExercise.exerciseInfo[i].reps,
+        sets: (i + 1).toString(),
+        weight: findExercise.exerciseInfo[i].weight,
+      );
+    }
+
+    notifyListeners();
+    db.saveToDb(workoutList);
+  }
 
   //checkoff the box
   // void checkBox(String workoutName, String exercise) {

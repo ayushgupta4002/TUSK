@@ -196,7 +196,12 @@ class _ExerciseInfoPageState extends State<ExerciseInfoPage> {
                                     icon: const Icon(
                                         Icons.delete_outline_outlined),
                                     color: Colors.white,
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      value.delExerciseInfo(
+                                          widget.date,
+                                          widget.exerciseName,
+                                          exerciseInfo.sets.toString());
+                                    },
                                   )),
                                 ]);
                               })),
