@@ -9,7 +9,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final documentdir = await getApplicationDocumentsDirectory();
   Hive.init(documentdir.path);
-  await Hive.openBox("Tusk_dbs");
+  await Hive.openBox("Tusk_db1");
   runApp(const MyApp());
 }
 
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => WorkoutData(),
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: SplashScreen(),
       ),

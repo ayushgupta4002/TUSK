@@ -7,14 +7,14 @@ import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 
 class HiveDb {
-  final _mybox = Hive.box("Tusk_dbs");
+  final _mybox = Hive.box("Tusk_db1");
 
   bool prevDataExists() {
     if (_mybox.isEmpty) {
       print("no prev data exist");
       var now = new DateTime.now();
-      var formatter = new DateFormat('yyyy-MM-dd');
-      String formattedDate = formatter.format(now);
+      String formatter = DateFormat.yMMMMd('en_US').format(now);
+      String formattedDate = formatter.toString();
 
       _mybox.put("START_DATE", formattedDate);
       return false;
@@ -24,6 +24,10 @@ class HiveDb {
     }
   }
 
+  String getStartDate() {
+    return _mybox.get("START_DATE");
+  }
+
   void saveToDb(List<Workout> workoutList) {
     //convert all three into lists
     final daysList = convertDaysInfotoList(workoutList);
@@ -31,6 +35,8 @@ class HiveDb {
     final exercise = convertExercisestoList(workoutList);
     _mybox.put("DAYSLIST", daysList);
     _mybox.put("EXERCISES", exercise);
+
+
 
     _mybox.put("EXERCISE_INFO", exercisesAndInfo);
   }

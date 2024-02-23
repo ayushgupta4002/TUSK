@@ -1,3 +1,4 @@
+// import 'package:baki/components/heat_map.dart';
 import 'package:baki/data/workout_data.dart';
 import 'package:baki/pages/exercise_page.dart';
 import 'package:flutter/material.dart';
@@ -61,71 +62,79 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   dialog(context);
                 }),
-            body: value.workoutList.length != 0
-                ? ListView.builder(
-                    itemCount: value.getWorkoutList().length,
-                    itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          goToExercisePage(value.getWorkoutList()[index].name,
-                              value.getWorkoutList()[index].date);
-                        },
-                        child: ListTile(
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 8, horizontal: 17),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: borderRadius),
-                          tileColor: const Color(0xff0b211f),
-                          title: Text(
-                            value.getWorkoutList()[index].date,
-                            style: const TextStyle(
-                                fontSize: 22, color: Colors.white),
-                          ),
-                          subtitle: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 2.0, right: 2),
-                                child: Chip(
-                                    label: Text(
-                                        value.getWorkoutList()[index].time)),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 4, vertical: 2),
-                                child: value
-                                        .getWorkoutList()[index]
-                                        .name
-                                        .isNotEmpty
-                                    ? Chip(
-                                        label: Text(
-                                            value.getWorkoutList()[index].name))
-                                    : Text(""),
-                              ),
-                            ],
-                          ),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.delete_outline_outlined),
-                            color: Colors.white,
-                            onPressed: () => value.removeWorkout(
-                                value.getWorkoutList()[index].date,
-                                value.getWorkoutList()[index].time),
+            body: ListView(children: [
+              // MyHeatMap(
+              //     dataset: value.heatMapDataset,
+              //     startDate: value.getStartDate()),
+              value.workoutList.length != 0
+                  ? ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: value.getWorkoutList().length,
+                      itemBuilder: (context, index) => Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            goToExercisePage(value.getWorkoutList()[index].name,
+                                value.getWorkoutList()[index].date);
+                          },
+                          child: ListTile(
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 17),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: borderRadius),
+                            tileColor: const Color(0xff0b211f),
+                            title: Text(
+                              value.getWorkoutList()[index].date,
+                              style: const TextStyle(
+                                  fontSize: 22, color: Colors.white),
+                            ),
+                            subtitle: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 2.0, right: 2),
+                                  child: Chip(
+                                      label: Text(
+                                          value.getWorkoutList()[index].time)),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 4, vertical: 2),
+                                  child: value
+                                          .getWorkoutList()[index]
+                                          .name
+                                          .isNotEmpty
+                                      ? Chip(
+                                          label: Text(value
+                                              .getWorkoutList()[index]
+                                              .name))
+                                      : Text(""),
+                                ),
+                              ],
+                            ),
+                            trailing: IconButton(
+                              icon: const Icon(Icons.delete_outline_outlined),
+                              color: Colors.white,
+                              onPressed: () => value.removeWorkout(
+                                  value.getWorkoutList()[index].date,
+                                  value.getWorkoutList()[index].time),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  )
-                : Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        "Please add a workout !",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                    )
+                  : Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
+                          "Please add a workout !",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
                       ),
                     ),
-                  )));
+            ])));
   }
 
   Future<dynamic> dialog(BuildContext context) {

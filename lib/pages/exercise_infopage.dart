@@ -148,54 +148,59 @@ class _ExerciseInfoPageState extends State<ExerciseInfoPage> {
                       child: Theme(
                         data: Theme.of(context)
                             .copyWith(dividerColor: Colors.white),
-                        child: DataTable(
-                            columns: const [
-                              DataColumn(
-                                label: Text(
-                                  'Set',
-                                  style: TextStyle(color: Colors.white),
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.only(left: 7, right: 7, top: 5),
+                          child: DataTable(
+                              columns: const [
+                                DataColumn(
+                                  label: Text(
+                                    'Set',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                                 ),
-                              ),
-                              DataColumn(
-                                label: Text('Reps',
-                                    style: TextStyle(color: Colors.white)),
-                              ),
-                              DataColumn(
-                                label: Text('Weights',
-                                    style: TextStyle(color: Colors.white)),
-                              ),
-                              DataColumn(
-                                label: Text(''),
-                              ),
-                            ],
-                            rows: List.generate(
-                                value
+                                DataColumn(
+                                  label: Text('Reps',
+                                      style: TextStyle(color: Colors.white)),
+                                ),
+                                DataColumn(
+                                  label: Text('Weights',
+                                      style: TextStyle(color: Colors.white)),
+                                ),
+                                DataColumn(
+                                  label: Text(''),
+                                ),
+                              ],
+                              rows: List.generate(
+                                  value
+                                      .getExercise(
+                                          widget.date, widget.exerciseName)
+                                      .exerciseInfo
+                                      .length, (index) {
+                                ExerciseInfo exerciseInfo = value
                                     .getExercise(
                                         widget.date, widget.exerciseName)
-                                    .exerciseInfo
-                                    .length, (index) {
-                              ExerciseInfo exerciseInfo = value
-                                  .getExercise(widget.date, widget.exerciseName)
-                                  .exerciseInfo[index];
+                                    .exerciseInfo[index];
 
-                              return DataRow(cells: [
-                                DataCell(Text(exerciseInfo.sets.toString(),
-                                    style:
-                                        const TextStyle(color: Colors.white))),
-                                DataCell(Text(exerciseInfo.reps,
-                                    style:
-                                        const TextStyle(color: Colors.white))),
-                                DataCell(Text(exerciseInfo.weight,
-                                    style:
-                                        const TextStyle(color: Colors.white))),
-                                DataCell(IconButton(
-                                  icon:
-                                      const Icon(Icons.delete_outline_outlined),
-                                  color: Colors.white,
-                                  onPressed: () {},
-                                )),
-                              ]);
-                            })),
+                                return DataRow(cells: [
+                                  DataCell(Text(exerciseInfo.sets.toString(),
+                                      style: const TextStyle(
+                                          color: Colors.white))),
+                                  DataCell(Text(exerciseInfo.reps,
+                                      style: const TextStyle(
+                                          color: Colors.white))),
+                                  DataCell(Text(exerciseInfo.weight,
+                                      style: const TextStyle(
+                                          color: Colors.white))),
+                                  DataCell(IconButton(
+                                    icon: const Icon(
+                                        Icons.delete_outline_outlined),
+                                    color: Colors.white,
+                                    onPressed: () {},
+                                  )),
+                                ]);
+                              })),
+                        ),
                       ),
                     )
                   ],

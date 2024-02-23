@@ -30,9 +30,6 @@ class WorkoutData extends ChangeNotifier {
   void initializeWorkoutList() {
     if (db.prevDataExists()) {
       workoutList = db.readFromDb();
-      // print(workoutList[0].exercises[0].exerciseInfo[0].sets.toString());
-      // print(workoutList[0].exercises[0].exerciseInfo[1].sets.toString());
-      // print(workoutList[0].exercises[0].exerciseInfo[2].sets.toString());
     } else {
       db.saveToDb(workoutList);
     }
@@ -43,6 +40,21 @@ class WorkoutData extends ChangeNotifier {
     return workoutList;
   }
 
+  DateTime createDateTimeObj(String date) {
+    DateFormat inputFormat = DateFormat('MMMM d, yyyy', 'en_US');
+
+    // Parse the string into a DateTime object
+    DateTime dateTime = inputFormat.parse(date);
+
+    // Extract year, month, and date
+    int year = dateTime.year;
+    int month = dateTime.month;
+    int day = dateTime.day;
+
+    DateTime dateTimeObj = DateTime(year, month, day);
+
+    return dateTimeObj;
+  }
   //Total Weight
 
   double totalWeight(String date, String workoutname) {
@@ -157,5 +169,18 @@ class WorkoutData extends ChangeNotifier {
     Exercise findExercise = findWorkout.exercises
         .firstWhere((exercise) => exercise.exerciseName == exerciseName);
     return findExercise;
+  }
+
+  //get start date
+  String getStartDate() {
+    return db.getStartDate();
+  }
+
+  Map<DateTime, int> heatMapDataset = {};
+  void loadHeatMap() {
+    DateTime startDate = createDateTimeObj(getStartDate());
+    int daysInBetween = DateTime.now().difference(startDate).inDays;
+
+    for (int i = 0; i < daysInBetween + 1; i++) {}
   }
 }
