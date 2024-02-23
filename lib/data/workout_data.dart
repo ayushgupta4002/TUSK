@@ -62,7 +62,8 @@ class WorkoutData extends ChangeNotifier {
     double total = 0;
     findWorkout.exercises.forEach((exercise) {
       exercise.exerciseInfo.forEach((exercisedata) {
-        total += double.parse(exercisedata.weight);
+        total +=
+            double.parse(exercisedata.weight) * double.parse(exercisedata.reps);
       });
     });
     return total;
